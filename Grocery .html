@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amanikay Farm - Fresh Produce, Grown with Care in Kenya</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&amp;family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-green: #215e21; /* Deeper, richer green */
+      --secondary-green: #4CAF50; /* A vibrant mid-green */
+      --light-green: #8BC34A; /* A fresh, bright green */
+      --dark-text: #2c3e50;
+      --light-text: #ecf0f1;
+      --background-light: #f5f5f5;
+      --background-dark: #e0e0e0;
+      --white: #ffffff;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background-light);
+      color: var(--dark-text);
+      line-height: 1.6;
+      overflow-x: hidden; /* Prevent horizontal scroll from animations */
+    }
+
+    h1, h2, h3 {
+      font-family: 'Lora', serif;
+      color: var(--primary-green);
+    }
+
+    header {
+      background-color: var(--primary-green);
+      color: var(--white);
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header .logo {
+      font-family: 'Lora', serif;
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    nav a {
+      color: var(--white);
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--light-green);
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://i.postimg.cc/02Sw6fHL/8f1c697686d7564a23df2dd99496478e.jpg') no-repeat center center/cover;
+      background-position: center 30%; /* Adjust background position to show more farm */
+      color: var(--white);
+      padding: 8rem 5%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 60vh;
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      margin-bottom: 0.5rem;
+      color: var(--white);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      animation: slideInFromLeft 1s ease-out;
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      color: var(--light-text);
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      animation: slideInFromRight 1s ease-out;
+    }
+
+    @keyframes slideInFromLeft {
+        from { transform: translateX(-100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideInFromRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    .hero button {
+      padding: 1rem 2.5rem;
+      background-color: var(--light-green);
+      color: var(--primary-green);
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      animation: fadeInUp 1s ease-out 0.5s forwards; /* Added delay */
+      opacity: 0; /* Start hidden for animation */
+    }
+
+    .hero button:hover {
+      background-color: var(--secondary-green);
+      color: var(--white);
+      transform: translateY(-3px) scale(1.02); /* More pronounced hover */
+    }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+
+    section {
+      padding: 4rem 5%;
+      margin-bottom: 1rem;
+    }
+
+    section h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+      color: var(--primary-green);
+    }
+
+    section h2::after {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 4px;
+      background-color: var(--light-green);
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .about-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .about-content div {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .about-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .about-content img:hover {
+      transform: scale(1.03);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .product-item {
+      background-color: var(--white);
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .product-item:hover {
+      transform: translateY(-8px) scale(1.02); /* Enhanced hover effect */
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+
+    .product-item img {
+      width: 180px; /* Fixed width for circular images */
+      height: 180px; /* Fixed height for circular images */
+      object-fit: cover;
+      border-radius: 50%; /* Make images circular */
+      margin-bottom: 1rem;
+      border: 4px solid var(--light-green); /* Green border for pop */
+      transition: transform 0.3s ease;
+    }
+
+    .product-item img:hover {
+      transform: rotate(5deg) scale(1.05); /* Slight rotation on hover */
+    }
+
+    .product-item h3 {
+      color: var(--secondary-green);
+      font-size: 1.6rem; /* Slightly reduced */
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-item p {
+      font-size: 0.95rem; /* Slightly reduced */
+      color: var(--dark-text);
+    }
+
+    .contact-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .contact-form-wrapper {
+      flex: 2;
+      min-width: 300px;
+      background-color: var(--white);
+      padding: 2.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .contact-info {
+      flex: 1;
+      min-width: 250px;
+      background-color: var(--white);
+      padding: 2.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .contact-info p {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      color: var(--dark-text);
+    }
+
+    .contact-form-wrapper input,
+    .contact-form-wrapper textarea {
+      width: calc(100% - 1.6rem); /* Adjusted for padding */
+      padding: 0.8rem;
+      margin: 0.7rem 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .contact-form-wrapper input:focus,
+    .contact-form-wrapper textarea:focus {
+        border-color: var(--secondary-green);
+        box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2); /* Light green shadow on focus */
+        outline: none;
+    }
+
+    .contact-form-wrapper textarea {
+      resize: vertical;
+    }
+
+    .contact-form-wrapper button {
+      padding: 0.9rem 2rem;
+      background-color: var(--primary-green);
+      color: var(--white);
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .contact-form-wrapper button:hover {
+      background-color: var(--secondary-green);
+      transform: translateY(-2px);
+    }
+
+    .ecommerce {
+      background-color: var(--background-dark);
+      text-align: center;
+      padding: 4rem 5%;
+      border-radius: 8px;
+      margin-top: 2rem;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+      animation: fadeIn 1s ease-out;
+    }
+
+    .ecommerce h2 {
+      color: var(--dark-text);
+      font-size: 3rem; /* Slightly larger for emphasis */
+      margin-bottom: 1rem;
+    }
+    .ecommerce p {
+        font-size: 1.3rem;
+        max-width: 800px;
+        margin: 0 auto;
+        color: var(--dark-text);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 5%;
+      background-color: var(--primary-green);
+      color: var(--white);
+      margin-top: 2rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem 2rem;
+      }
+
+      nav {
+        margin-top: 1rem;
+      }
+
+      nav a {
+        margin: 0 0.5rem;
+        display: inline-block;
+        margin-bottom: 0.5rem;
+      }
+
+      .hero {
+        padding: 6rem 2rem;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+      }
+
+      section {
+        padding: 3rem 2rem;
+      }
+
+      section h2 {
+        font-size: 2rem;
+      }
+
+      .about-content {
+        flex-direction: column;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product-item img {
+        width: 150px;
+        height: 150px;
+      }
+
+      .contact-container {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      section {
+        padding: 2.5rem 1rem;
+      }
+
+      section h2 {
+        font-size: 1.8rem;
+      }
+      .product-item img {
+        width: 120px;
+        height: 120px;
+      }
+      .product-item h3 {
+        font-size: 1.4rem;
+      }
+      .product-item p {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="logo">Amanikay Farm</a>
+    <nav>
+      <a href="#about">About Us</a>
+      <a href="#products">Our Produce</a>
+      <a href="#contact">Contact Us</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <h1>AMANIKAY FARM</h1>
+    <p>Nurturing Nature, Delivering Freshness – Straight from Our Farm to Your Table in Kenya</p>
+    <button onclick="document.getElementById('about').scrollIntoView({ behavior: 'smooth' });">Discover Our Story</button>
+  </div>
+
+  <section id="about">
+    <h2>Our Story &amp; Commitment</h2>
+    <div class="about-content">
+      <div>
+        <p>At **Amanikay Farm**, nestled in the rich, fertile lands of Kenya, we believe in sustainable agriculture and cultivating produce with unparalleled care. Our journey began with a passion for providing our community with fresh, wholesome food, grown using environmentally responsible practices.</p>
+        <p>We are dedicated to ensuring every fruit, vegetable, and dairy product from our farm is of the highest quality, packed with natural goodness. We're more than just a farm; we're a promise of freshness, health, and a commitment to nurturing both our land and our customers.</p>
+        <p>Join us in embracing a healthier lifestyle, supported by the freshest produce Kenya has to offer.</p>
+      </div>
+      <div>
+        <img src="https://i.postimg.cc/nrFHGq4Y/503c6b91d0b71e443dc2cb451b259e0b.jpg" alt="Farmers working on Amanikay Farm">
+      </div>
+    </div>
+  </section>
+
+  <section id="products">
+    <h2>Our Fresh Produce</h2>
+    <div class="products-grid">
+      <div class="product-item">
+        <img src="https://i.postimg.cc/ZqGdLY5K/9a3251e176544a068d5d6c9f46d51a8e-1.jpg" alt="Fresh Vegetables">
+        <h3>Farm-Fresh Vegetables</h3>
+        <p>From crisp leafy greens like spinach and kale to vibrant carrots and juicy tomatoes, our vegetables are harvested at their peak for maximum flavor and nutrition.</p>
+      </div>
+      <div class="product-item">
+        <img src="https://i.postimg.cc/PfmRYP5J/5c9c891f26d1d1dd5428311498512631.jpg" alt="Delicious Fruits">
+        <h3>Seasonal Fruits</h3>
+        <p>Enjoy the sweetness of nature with our seasonal fruits, including ripe mangoes, avocados, bananas, and a variety of citrus, all grown naturally on our farm.</p>
+      </div>
+      <div class="product-item">
+        <img src="https://i.postimg.cc/9FrnD1KP/bbf6ceb2f6b7a9113402094652b665e7.jpg" alt="Wholesome Dairy Products">
+        <h3>Wholesome Dairy Products</h3>
+        <p>Experience the rich, creamy taste of our fresh milk and handcrafted yogurt, sourced from our healthy, happy cows, ensuring purity and quality.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Connect With Us</h2>
+    <div class="contact-container">
+      <div class="contact-form-wrapper">
+        <h3>Send Us a Message</h3>
+        <form>
+          <input type="text" placeholder="Your Name" required>
+          <input type="email" placeholder="Your Email" required>
+          <input type="tel" placeholder="Your Phone Number (Optional)">
+          <textarea rows="6" placeholder="How can we help you?" required></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+      <div class="contact-info">
+        <h3>Find Us Here</h3>
+        <p><strong>Email:</strong> info@amanikayfarm.co.ke</p>
+        <p><strong>Phone:</strong> +254 7XX XXX XXX</p>
+        <p><strong>Address:</strong> [Your Farm Location], Rural Kenya, Kenya</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ecommerce">
+    <h2>E-commerce Coming Soon!</h2>
+    <p>Get ready for a seamless shopping experience for the freshest farm goods, delivered right to your doorstep!</p>
+  </section>
+
+  <footer>
+    © 2025 Amanikay Farm. All rights reserved. | Nurturing Nature, Delivering Freshness.
+  </footer>
+
+</body></html>
