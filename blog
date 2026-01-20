@@ -3,168 +3,195 @@
  <head> 
   <meta charset="UTF-8"> 
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  <title>Farm Stories | AmaniKay</title> 
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Poppins:wght@300;400;600&amp;display=swap" rel="stylesheet"> 
+  <title>AmaniKay Farm Blog | Climate Smart Stories</title> 
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet"> 
   <script src="https://api.backendless.com/sdk/js/latest/backendless.min.js"></script> 
   <style>
         :root {
-            --primary: #006400;
-            --accent: #e67e22;
-            --text-main: #2c3e50;
-            --text-light: #7f8c8d;
-            --bg-soft: #fbfaf8;
+            --primary: #0a3d1d;
+            --secondary: #2e7d32;
+            --accent: #fbbf24;
+            --light: #ffffff;
+            --bg: #f4f7f4; 
         }
+        body { font-family: 'Poppins', sans-serif; margin: 0; background-color: var(--bg); color: #1a1a1a; line-height: 1.6; }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-soft);
-            color: var(--text-main);
-            margin: 0;
-            line-height: 1.6;
-        }
+        .container { width: 92%; max-width: 900px; margin: 0 auto; }
 
-        /* --- Layout --- */
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-        .blog-header { padding: 80px 5% 40px; text-align: center; }
-        h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--primary); margin: 0; }
+        header { background: var(--primary); padding: 50px 0; color: white; text-align: center; }
+        header h1 { font-size: 2.2rem; font-weight: 800; margin: 0; text-transform: uppercase; letter-spacing: 2px; }
+        header p { margin: 10px 0 0; opacity: 0.9; font-weight: 400; font-size: 0.9rem; letter-spacing: 1px; }
         
-        .blog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 40px;
-            margin: 40px 0 80px;
+        nav { background: var(--light); padding: 15px 0; border-bottom: 1px solid #e0e0e0; position: sticky; top: 0; z-index: 100; text-align: center; }
+        nav a { text-decoration: none; color: var(--primary); font-weight: 700; font-size: 0.85rem; margin: 0 20px; text-transform: uppercase; transition: 0.3s; }
+        nav a:hover { color: var(--accent); }
+
+        .blog-feed { padding: 40px 0; }
+        
+        .story-card { 
+            display: flex; gap: 25px; margin-bottom: 30px; background: var(--light);
+            padding: 25px; border-radius: 16px; border: 1px solid #e2e8f0; align-items: flex-start;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); transition: 0.3s;
+        }
+        .story-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+
+        .story-img { width: 180px; height: 180px; flex-shrink: 0; border-radius: 12px; overflow: hidden; }
+        .story-img img { width: 100%; height: 100%; object-fit: cover; }
+
+        .story-content { flex-grow: 1; }
+        .date-meta { font-weight: 700; color: var(--secondary); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .story-content h2 { font-size: 1.5rem; font-weight: 800; margin: 8px 0 12px; color: var(--primary); line-height: 1.3; }
+        .excerpt { color: #4b5563; font-size: 0.95rem; margin-bottom: 20px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+        .read-btn { 
+            display: inline-block; padding: 12px 28px; background: var(--primary); color: white; 
+            text-decoration: none; font-weight: 700; border-radius: 8px; font-size: 0.85rem; cursor: pointer; border: none; transition: 0.3s;
+        }
+        .read-btn:hover { background: #000; }
+
+        /* Full Story Overlay */
+        #blog-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: var(--light); z-index: 1000; display: none; overflow-y: auto; 
+        }
+        .overlay-header { 
+            position: sticky; top: 0; background: var(--light); padding: 15px 0; 
+            border-bottom: 1px solid #eee; text-align: center; z-index: 1001;
+        }
+        .close-btn { background: var(--primary); color: white; border: none; padding: 10px 24px; cursor: pointer; font-weight: 700; border-radius: 6px; }
+        
+        .full-blog-content { padding: 40px 0; max-width: 800px; }
+        .full-blog-img { width: 100%; max-height: 500px; object-fit: cover; border-radius: 16px; margin-bottom: 30px; }
+        
+        .share-container { display: flex; align-items: center; justify-content: space-between; margin: 25px 0; padding: 20px 0; border-top: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9; }
+        .share-btn { 
+            background: var(--accent); color: #000; padding: 12px 24px; border-radius: 8px; 
+            text-decoration: none; font-weight: 800; font-size: 0.85rem; border: none; cursor: pointer;
         }
 
-        /* --- Cards --- */
-        .blog-card {
-            background: #fff;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: 0.3s;
-            cursor: pointer;
-        }
-        .blog-card:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-        .card-img { width: 100%; height: 220px; object-fit: cover; }
-        .card-body { padding: 25px; }
-        .card-body h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin: 0 0 10px; }
-        .read-more { color: var(--accent); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; }
+        .full-text { font-size: 1.1rem; color: #1f2937; white-space: pre-wrap; line-height: 1.8; }
 
-        /* --- Full Post Modal --- */
-        #post-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 1000;
-            overflow-y: auto;
-            backdrop-filter: blur(5px);
-            padding: 40px 20px;
-        }
-
-        .modal-content {
-            background: white;
-            max-width: 800px;
-            margin: 0 auto;
-            border-radius: 20px;
-            position: relative;
-            animation: slideUp 0.4s ease;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .modal-close {
-            position: sticky;
-            top: 20px; left: 92%;
-            background: var(--primary);
-            color: white;
-            border: none;
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-            z-index: 10;
-        }
-
-        .modal-body { padding: 0 50px 50px; }
-        .modal-hero-img { width: 100%; height: 400px; object-fit: cover; border-radius: 20px 20px 0 0; }
-        .modal-body h1 { margin-top: 30px; font-size: 2.5rem; line-height: 1.2; }
-        .modal-text { font-size: 1.1rem; color: #444; white-space: pre-line; }
+        footer { background: var(--primary); color: #fff; padding: 50px 0; text-align: center; }
 
         @media (max-width: 600px) {
-            .modal-body { padding: 20px; }
-            .modal-hero-img { height: 250px; }
+            .story-card { flex-direction: column; padding: 15px; }
+            .story-img { width: 100%; height: 220px; }
+            header h1 { font-size: 1.8rem; }
         }
     </style> 
  </head> 
  <body> 
-  <header class="blog-header"> 
-   <h1>The AmaniKay Journal</h1> 
-   <p>Climate Smart Stories &amp; Farming Innovation</p> 
+  <header> 
+   <div class="container">
+    <h1>AMANI KAY FARM BLOG</h1>
+    <p>Stories from the field. Climate smart farming is sexy.</p>
+   </div> 
   </header> 
-  <div class="container"> 
-   <main id="blog-container" class="blog-grid"> 
-    <p>Loading stories...</p> 
-   </main> 
-  </div> 
-  <div id="post-modal" onclick="closeModal(event)"> 
-   <div class="modal-content" onclick="event.stopPropagation()"> <button class="modal-close" onclick="closeModal(event)">×</button> 
-    <img id="modal-img" src="" alt="" class="modal-hero-img"> 
-    <div class="modal-body"> 
-     <h1 id="modal-title"></h1> 
-     <p id="modal-date" style="color: var(--text-light); margin-bottom: 20px;"></p> 
-     <div id="modal-text" class="modal-text"></div> 
+  <nav> 
+   <a href="index.html">HOME</a> 
+   <a href="shop.html">SHOP</a> 
+  </nav> 
+  <main class="container blog-feed" id="blog-container"> 
+   <p style="text-align:center; opacity:0.6;">Bringing you the latest field stories...</p> 
+  </main> 
+  <div id="blog-overlay"> 
+   <div class="overlay-header"> 
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center;"> 
+        <span style="font-weight:800; color:var(--primary); letter-spacing:1px;">AMANI KAY</span> 
+        <button class="close-btn" onclick="closeBlog()">BACK TO BLOG</button> 
     </div> 
    </div> 
+   <div class="container full-blog-content"> 
+    <div id="full-content-area"></div> 
+   </div> 
   </div> 
+  <footer> 
+   <p>© 2026 AmaniKay Farm. All Rights Reserved.</p> 
+  </footer> 
   <script>
-    Backendless.initApp("91A41A61-DD6C-481F-ADCA-41A9C5ED0376", "39DB2B85-5B1D-4EA8-8F06-5095CF152ED3");
+        const APP_ID = "91A41A61-DD6C-481F-ADCA-41A9C5ED0376";
+        const JS_API_KEY = "39DB2B85-5B1D-4EA8-8F06-5095CF152ED3";
+        Backendless.initApp(APP_ID, JS_API_KEY);
 
-    let allPosts = []; // Store posts globally to access them for the modal
+        let cachedPosts = [];
 
-    async function fetchBlogs() {
-        const grid = document.getElementById('blog-container');
-        try {
-            allPosts = await Backendless.Data.of("BlogPosts").find({
-                options: { sortBy: ["created DESC"] }
-            });
+        async function shareAnywhere(title) {
+            const shareData = {
+                title: 'AmaniKay Farm Story',
+                text: `Read this: ${title}`,
+                url: window.location.href
+            };
 
-            grid.innerHTML = allPosts.map((post, index) => `
-                <div class="blog-card" onclick="openModal(${index})">
-                    <img src="${post.imageurl || 'https://via.placeholder.com/400x220'}" class="card-img">
-                    <div class="card-body">
-                        <p style="font-size: 0.8rem; color: var(--text-light);">${new Date(post.created).toLocaleDateString()}</p>
-                        <h2>${post.title}</h2>
-                        <p style="color: #666; font-size: 0.9rem;">${post.content ? post.content.substring(0, 100) : ''}...</p>
-                        <span class="read-more">Read Full Story →</span>
-                    </div>
-                </div>
-            `).join('');
-        } catch (e) {
-            grid.innerHTML = "<p>Error loading stories.</p>";
+            if (navigator.share) {
+                try {
+                    await navigator.share(shareData);
+                } catch (err) {
+                    console.log("Share skipped");
+                }
+            } else {
+                navigator.clipboard.writeText(`${shareData.text} - ${shareData.url}`);
+                alert("Story link copied to clipboard!");
+            }
         }
-    }
 
-    function openModal(index) {
-        const post = allPosts[index];
-        document.getElementById('modal-img').src = post.imageurl || '';
-        document.getElementById('modal-title').innerText = post.title;
-        document.getElementById('modal-date').innerText = new Date(post.created).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-        document.getElementById('modal-text').innerText = post.content || 'No content available.';
-        
-        document.getElementById('post-modal').style.display = 'block';
-        document.body.style.overflow = 'hidden'; // Stop background scrolling
-    }
+        async function loadBlog() {
+            const container = document.getElementById('blog-container');
+            try {
+                cachedPosts = await Backendless.Data.of("BlogPosts").find({
+                    options: { sortBy: ["created DESC"] }
+                });
 
-    function closeModal(e) {
-        document.getElementById('post-modal').style.display = 'none';
-        document.body.style.overflow = 'auto'; // Enable background scrolling
-    }
+                if (cachedPosts.length === 0) {
+                    container.innerHTML = "<p style='text-align:center'>We're still writing our first story. Stay tuned!</p>";
+                    return;
+                }
 
-    window.onload = fetchBlogs;
-</script> 
+                container.innerHTML = "";
+                cachedPosts.forEach((post, index) => {
+                    const img = post.imageurl || post.imageUrl || 'https://via.placeholder.com/400';
+                    container.innerHTML += `
+                        <article class="story-card">
+                            <div class="story-img"><img src="${img}"></div>
+                            <div class="story-content">
+                                <span class="date-meta">${new Date(post.created).toDateString()}</span>
+                                <h2>${post.title}</h2>
+                                <p class="excerpt">${post.content.substring(0, 150)}...</p>
+                                <button class="read-btn" onclick="openBlog(${index})">READ FULL STORY</button>
+                            </div>
+                        </article>`;
+                });
+            } catch (err) {
+                container.innerHTML = "<p style='text-align:center'>Connection error. Please refresh the page.</p>";
+            }
+        }
+
+        function openBlog(index) {
+            const post = cachedPosts[index];
+            const area = document.getElementById('full-content-area');
+            const img = post.imageurl || post.imageUrl || 'https://via.placeholder.com/600';
+            
+            area.innerHTML = `
+                <img src="${img}" class="full-blog-img">
+                <span class="date-meta" style="color:#666">Published by ${post.author || 'Amani Kay'}</span>
+                <h1 style="margin-top:10px; font-size:2.2rem;">${post.title}</h1>
+                <div class="share-container">
+                    <span class="date-meta">${new Date(post.created).toDateString()}</span>
+                    <button class="share-btn" onclick="shareAnywhere('${post.title.replace(/'/g, "\\'")}')">
+                        SHARE STORY
+                    </button>
+                </div>
+                <div class="full-text">${post.content}</div>
+            `;
+            document.getElementById('blog-overlay').style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeBlog() {
+            document.getElementById('blog-overlay').style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        window.onload = loadBlog;
+    </script> 
  </body>
 </html>
